@@ -21,20 +21,44 @@
 #define KBD_READY 2
 #define KBD_STROBE 4
 
+// clock generator and reset
+#define DIVIDER 7  // divide 16 = 1MHz
+#define CLOCK_UNUSED_PIN 6
+#define CLOCK_OUT 9
+#define RESET_OUT 7
+#define RESET_IN 8
+
 MCP23S17 bridge(&SPI, IO_SS, 0);
 
 void setup() {
   Serial.begin(115200);
   configure_pins();
+  setup_timer1();
   configure_bridge();
   output_status();
+
+  delay(600);
+  digitalWrite(RESET_OUT, LOW);  // release reset
 }
 
+void setup_timer1() {
+  // setup timer 0
+  TCCR1A = 0b01000000;  // toggle OC1A on compare match CTC mode (WGM11=0, WGM10=0)
+  TCCR1B = 0b00001001;  // WGN13 = ,0 WGM12=1, no prescaling
+  OCR1A = DIVIDER;  //
+}
+  
 void configure_pins() {
   pinMode(KBD_READY, INPUT);
   pinMode(VIDEO_DA, INPUT);
   pinMode(KBD_STROBE, OUTPUT);
   pinMode(VIDEO_RDA, OUTPUT);
+  
+  pinMode(CLOCK_OUT, OUTPUT);   // for clock
+  pinMode(CLOCK_UNUSED_PIN, INPUT);    // make sure to set INPUT to avoid conflict
+  pinMode(RESET_OUT, OUTPUT);   // for reset
+  digitalWrite(RESET_OUT, HIGH);  // reset state
+  pinMode(RESET_IN, INPUT_PULLUP);  // manual reset switch
 }
 
 void configure_bridge() {
@@ -175,4 +199,9 @@ void send_ascii(char c) {
 void loop() {
   serial_receive();
   serial_transmit();
+  // handle reset switch
+  if (digitalRead(RESET_IN) == LOW)
+    digitalWrite(RESET_OUT, HIGH); // reset
+  else 
+    digitalWrite(RESET_OUT, LOW); // reset
 }
