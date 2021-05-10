@@ -1,4 +1,4 @@
-# RC6502 Apple 1 Replica
+# RC6502 Apple 1 Replica without dedicated reset and osc virsuit
 
 Since building and spending time with the excellent [RC2014](http://rc2014.co.uk) computer kit, I wanted to build another one from scratch while learning even more about them along the way. Combine that with the love of old machines I'll never be able to own, and the missing knowledge to actually do that I instead started looking for books on how things work on a more basic level.
 
