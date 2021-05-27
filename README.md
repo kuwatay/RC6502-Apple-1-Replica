@@ -1,5 +1,9 @@
-# RC6502 Apple 1 Replica without dedicated reset and osc virsuit
+# RC6502 Apple 1 Replica without dedicated reset and osc circuit
 
+This is small hack not to use reset and osc circuit. Arduino Pro mini generate both signal. 
+To use this version, one must modify PCB to ruote reset and clock to CPU. Please see picture at https://github.com/kuwatay/RC6502-Apple-1-Replica-simpleosc/blob/simpleclock/Gallery/RC6502-modification.jpg
+
+# Original README.md
 Since building and spending time with the excellent [RC2014](http://rc2014.co.uk) computer kit, I wanted to build another one from scratch while learning even more about them along the way. Combine that with the love of old machines I'll never be able to own, and the missing knowledge to actually do that I instead started looking for books on how things work on a more basic level.
 
 Seems someone, Tow Owad ofcourse, wrote a book on called "Apple 1 Replica Creation, Back to the garage" on how to build an Apple 1 computer from scratch and made it freely available on [http://www.applefritter.com/](http://www.applefritter.com/). Couldn't possibly find a more perfect match, so thank you for that Tom! Only thing missing was the PCBs, so with that in mind I set about designing them in KiCAD. Before long, the RC6502 Apple 1 Replica was born.
